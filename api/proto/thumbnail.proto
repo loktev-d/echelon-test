@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "./pkg/api";
+
+service Thumbnail {
+    rpc GetThumbnail(ThumbnailRequest) returns (ThumbnailResponse);
+}
+
+message ThumbnailRequest {
+    string video_id = 1;
+}
+
+message ThumbnailResponse {
+    bytes thumbnail = 1;
+}
