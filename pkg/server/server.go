@@ -7,6 +7,7 @@ import (
 	"echelon/thumbnail/pkg/cache"
 	"errors"
 	"io"
+	"log"
 	"net/http"
 
 	"google.golang.org/api/youtube/v3"
@@ -20,8 +21,11 @@ type Server struct {
 }
 
 func (s *Server) GetThumbnail(ctx context.Context, req *api.ThumbnailRequest) (*api.ThumbnailResponse, error) {
+	log.Printf("req videoId: %s", req.VideoId)
+
 	fileBytes, err := cache.GetCache(s.db, req.GetVideoId())
 	if err == nil {
+		log.Printf("videoId '%s' is cached", req.VideoId)
 		return &api.ThumbnailResponse{
 			Thumbnail: fileBytes,
 		}, nil
