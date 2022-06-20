@@ -58,7 +58,9 @@ func main() {
 		}
 	}
 
-	wg.Wait()
+	if isAsync {
+		wg.Wait()
+	}
 }
 
 func downloadImage(ytUrl string, client api.ThumbnailClient, wg *sync.WaitGroup) {
